@@ -19,10 +19,10 @@ Although we only tried CentOS 6.5 and Ubuntu 16.04/14.04/12.10, FFFS can be buil
 * Apache Maven 3.1.1
 * [OFED](http://downloads.openfabrics.org/OFED/) >= 1.5
 
-## 2.2 Download Source and Apply the patch
+## 2.2 Download Source and Apply the Patch
 Download [hadoop-2.4.1 tarball](https://archive.apache.org/dist/hadoop/core/hadoop-2.4.1/hadoop-2.4.1-src.tar.gz). Unpack it. Download [FFFS patch](https://github.com/songweijia/fffs/blob/master/sources/fffs-for-hadoop-2.4.1-src.patch.tgz), unpack it and put it in the extracted folder hadoop-2.4.1-src. Patch the source code as follows:
 
-` -p1 < fffs.patch`
+` -p1 < fffs-for-hadoop-2.4.1-src.patch`
 
 ## 2.3 Build FFFS
 
@@ -77,7 +77,8 @@ FFFS does not support block replication but we plan to support on demand caching
   <value>1</value>
 </property>
 ```
-6) Optional: turn on RDMA transfer.
+6) Optional: RDMA settings
+
 Set the name of the rdma device.
 ```xml
 <property>
@@ -139,4 +140,4 @@ throws IOException{
 ```
 Please see more examples in [`sources/examples/FileTester.java`](https://github.com/songweijia/fffs/blob/master/sources/examples/FileTester.java)
 
-Previous versions are maintained at [Codeplex](http://fffs.codeplex.com).
+This project with its previous versions is also maintained at [Codeplex](http://fffs.codeplex.com).
