@@ -110,7 +110,7 @@ Enable RDMA for read and write:
   <value>2097152</value> <!--2MB-->
  </property>
 ```
-4 Usage
+# 4 Usage
 FFFS APIs are compatible with HDFS API. FFFS reuses the HDFS snapshot interface but has a totally difference implemntation under the hood. HDFS treats all updates from when a file is opened until when it is closed as a single atomic event that occurred when the file was opened. But the file data might not be finalized until the file is closed, possibly ten minutes later. In consequence, an HDFS snapshot created at 10:00 a.m. might include updates that didn’t occur until 10:09am. FFFS prevent this by a unique logical clock based solution. Please refer to HDFS document for how to create and read from snapshots.
 
 Whereas HDFS only permits appends, FFFS allows updates at arbitrary offsets within files. To support this, we enable use of the seek system call HDFS applications does not need to be modified to use FFFS. The following codelets show how to write randomly to FFFS.
