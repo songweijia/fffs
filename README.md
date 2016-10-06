@@ -20,7 +20,7 @@ Although we only tried CentOS 6.5 and Ubuntu 16.04/14.04/12.10, FFFS can be buil
 * [OFED](http://downloads.openfabrics.org/OFED/) >= 1.5
 
 ## 2.2 Download Source and Apply the patch
-Download [hadoop-2.4.1 tarball](https://archive.apache.org/dist/hadoop/core/hadoop-2.4.1/hadoop-2.4.1-src.tar.gz). Unpack it. Download [FFFS patch](https://github.com/songweijia/fffs/blob/master/showcases/movies/ezgif-fffs_servertime.gif), unpack it and put it in the extracted folder hadoop-2.4.1-src. Patch the source code as follows:
+Download [hadoop-2.4.1 tarball](https://archive.apache.org/dist/hadoop/core/hadoop-2.4.1/hadoop-2.4.1-src.tar.gz). Unpack it. Download [FFFS patch](https://github.com/songweijia/fffs/blob/master/sources/fffs-for-hadoop-2.4.1-src.patch.tgz), unpack it and put it in the extracted folder hadoop-2.4.1-src. Patch the source code as follows:
 
 ` -p1 < fffs.patch`
 
@@ -39,76 +39,76 @@ Deploying FFFS is basically the same as deploying the original HDFS. Please foll
 1) Enable the FFFS block log, and set the memory buffer size for it.
 ```xml
 <property>
-    <name>dfs.datanode.fsdataset.factory</name>
-    <value>org.apache.hadoop.hdfs.server.datanode.fsdataset.impl.MemDatasetFactory</value>
-  </property>
- <property>
+  <name>dfs.datanode.fsdataset.factory</name>
+  <value>org.apache.hadoop.hdfs.server.datanode.fsdataset.impl.MemDatasetFactory</value>
+</property>
+<property>
   <name>dfs.memory.capacity</name>
   <value>34359738368</value><!--32GB -->
- </property>
+</property>
 ```
 2) PageSize: the default size is 4KB. Small page size relieve internal fragmentation but cause higher overhead. If the workload mainly consists of very small writes, use page smaller than 4KB.
 ```xml
 <property>
-    <name>dfs.memblock.pagesize</name>
-    <value>4096</value>
-  </property>
+  <name>dfs.memblock.pagesize</name>
+  <value>4096</value>
+</property>
 ```
 3) Package size represents the maximum write log resolution. The default package size is 64KB. Use larger one for better performance if the application is tolerant to coarse log resolution.
 ```xml
 <property>
-    <name>dfs.client-write-packet-size</name>
-    <value>65536</value>
-  </property>
- ```
+  <name>dfs.client-write-packet-size</name>
+  <value>65536</value>
+</property>
+```
 4) Turn off checksum.
 FFFS relies on TCP checksum instead of using another layer of checksum. We plan to support stronger data integrity check in future work.
 ``` xml
 <property>
-    <name>dfs.checksum.type</name>
-    <value>NULL</value>
-  </property>
+  <name>dfs.checksum.type</name>
+  <value>NULL</value>
+</property>
 ```
 5) Turn off replication.
 FFFS does not support block replication but we plan to support on demand caching to enable high performance with many readers, which is faster and more space-efficient.
 ``` xml
 <property>
-    <name>dfs.replication</name>
-    <value>1</value>
-  </property>
+  <name>dfs.replication</name>
+  <value>1</value>
+</property>
 ```
 6) Optional: turn on RDMA transfer.
 Set the name of the rdma device.
 ```xml
- <property>
+<property>
   <name>dfs.rdma.device</name>
   <value>mlx5_0</value>
- </property>
+</property>
 ```
 Set the size of client side memory buffer:
 ```xml
- <property>
+<property>
   <name>dfs.rdma.client.mem.region.size.exp</name>
   <value>30</value> <!--2^30=1GB-->
- </property>
+</property>
 ```
 Enable RDMA for read and write:
 ```xml
 <property>
   <name>dfs.client.use.rdma.blockreader</name>
   <value>true</value>
- </property>
- <property>
+</property>
+<property>
   <name>dfs.client.use.rdma.blockwriter</name>
   <value>true</value>
- </property>
- ```
- Set the RDMA transfer size:
- ```xml
- <property>
+</property>
+```
+Set the RDMA transfer size:
+```xml
+<property>
   <name>dfs.client.rdma.writer.flushsize</name>
   <value>2097152</value> <!--2MB-->
- </property>
+</property>
 ```
 # 4 Usage
 FFFS APIs are compatible with HDFS API. FFFS reuses the HDFS snapshot interface but has a totally difference implemntation under the hood. HDFS treats all updates from when a file is opened until when it is closed as a single atomic event that occurred when the file was opened. But the file data might not be finalized until the file is closed, possibly ten minutes later. In consequence, an HDFS snapshot created at 10:00 a.m. might include updates that didn’t occur until 10:09am. FFFS prevent this by a unique logical clock based solution. Please refer to HDFS document for how to create and read from snapshots.
@@ -137,6 +137,6 @@ throws IOException{
   fsos.close();
 }
 ```
-Please see more examples in `sources/examples/FileTester.java`
+Please see more examples in [`sources/examples/FileTester.java`](https://github.com/songweijia/fffs/blob/master/sources/examples/FileTester.java)
 
 Previous versions are maintained at [Codeplex](http://fffs.codeplex.com).
