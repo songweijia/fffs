@@ -54,7 +54,7 @@ Deploying FFFS is basically the same as deploying the original HDFS. Please foll
   <value>4096</value>
 </property>
 ```
-3) Package size represents the maximum write log resolution. The default package size is 64KB. Use larger one for better performance if the application is tolerant to coarse log resolution.
+3) Packet size represents the maximum write log resolution. The default packet size is 64KB. Use larger one for better performance if the application is tolerant to coarse log resolution.
 ```xml
 <property>
   <name>dfs.client-write-packet-size</name>
