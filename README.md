@@ -10,7 +10,7 @@ To build FFFS, please download [hadoop 2.4.1 source code](https://archive.apache
 
 Although we only tried CentOS 6.5 and Ubuntu 16.04/14.04/12.10, FFFS can be built by any recent linux distribution. Please make sure you have at least 10G diskspaces and have the following software installed:
 * gcc, g++, and make
-* cmake >= version 2.8.0
+* cmake >= version 3.1
 * openssl development package (CentOS: sudo yum install openssl openssl-devel; Ubuntu: sudo apt-get install openssl libssl-dev)
 * zlib development package (CentOS: sudo yum install zlib zlib-devel; Ubuntu: sudo apt-get install zlib1g zlib1g-dev)
 * protobuf-2.5.0
