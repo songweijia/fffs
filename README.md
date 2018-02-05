@@ -10,25 +10,26 @@ To build FFFS, please download [hadoop 2.4.1 source code](https://archive.apache
 
 Although we only tried CentOS 6.5 and Ubuntu 16.04/14.04/12.10, FFFS can be built by any recent linux distribution. Please make sure you have at least 10G diskspaces and have the following software installed:
 * gcc, g++, and make
-* cmake >= version 2.8.0
+* cmake >= version 3.1.0 
 * openssl development package (CentOS: sudo yum install openssl openssl-devel; Ubuntu: sudo apt-get install openssl libssl-dev)
 * zlib development package (CentOS: sudo yum install zlib zlib-devel; Ubuntu: sudo apt-get install zlib1g zlib1g-dev)
 * protobuf-2.5.0
-* Oracle Java SE 7
+* Oracle Java SE 8
 * Apache Ant 1.9.6
 * Apache Maven 3.1.1
+* pkgconf (CentOS: sudo yum install pkgconfig; Ubuntu: sudo apt-get install pkgconf)
 * [OFED](http://downloads.openfabrics.org/OFED/) >= 1.5
 
 ## 2.2 Download Source and Apply the Patch
 Download [hadoop-2.4.1 tarball](https://archive.apache.org/dist/hadoop/core/hadoop-2.4.1/hadoop-2.4.1-src.tar.gz). Unpack it. Download [FFFS patch](https://github.com/songweijia/fffs/blob/master/sources/fffs-for-hadoop-2.4.1-src.patch.tgz), unpack it and put it in the extracted folder hadoop-2.4.1-src. Patch the source code as follows:
 
-` -p1 < fffs-for-hadoop-2.4.1-src.patch`
+`patch -p1 < fffs-for-hadoop-2.4.1-src.patch`
 
 ## 2.3 Build FFFS
 
 Make sure current path is hadoop-2.4.1-src. Use the following command to build FFFS:
 
-`> mvn package -Pnative,dist -Dtar -DskipTests`
+`> mvn package -Pnative,dist -Dtar -DskipTests -Dmaven.javadoc.skip=true`
 
 This will take a while. After it finishes successfully, find the binary package at hadoop-2.4.1-src/hadoop-dist/target/hadoop-2.4.1.tar.gz. Use this package for deployment.
 
