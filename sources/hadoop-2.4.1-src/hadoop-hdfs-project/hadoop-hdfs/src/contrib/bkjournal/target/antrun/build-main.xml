@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <mkdir dir="/media/ephemeral0/hdfsrs/hadoop-2.4.1-src/hadoop-hdfs-project/hadoop-hdfs/src/contrib/bkjournal/target/test-dir"/>
+  <mkdir dir="/media/ephemeral0/hdfsrs/hadoop-2.4.1-src/hadoop-hdfs-project/hadoop-hdfs/src/contrib/bkjournal/target/test-dir"/>
+</target>
+</project>
