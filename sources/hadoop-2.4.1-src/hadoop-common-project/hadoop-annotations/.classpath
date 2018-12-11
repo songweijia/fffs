@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="M2_REPO/jdiff/jdiff/1.0.9/jdiff-1.0.9.jar"/>
+	<classpathentry kind="var" path="M2_REPO"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.7.0_15/lib/tools.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

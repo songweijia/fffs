@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <mkdir dir="C:\Users\sonic\workspace\hdfsrs\hadoop-mapreduce-client-jobclient\target/test-dir"/>
+  <mkdir dir="C:\Users\sonic\workspace\hdfsrs\hadoop-mapreduce-client-jobclient\target/test-dir"/>
+</target>
+</project>
